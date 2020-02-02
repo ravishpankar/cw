@@ -1,0 +1,15 @@
+{
+	"dbConfig": {
+		"connectionString": "mongodb://localhost:27017/test"
+
+	},
+	"jwtConfig" : {
+		"host": "localhost",
+		"port": 6379,
+		"password": "123",
+		"secret" : "cwsecret"
+	},
+	"cryptConfig" : {
+		"secret" : "cwsecret"
+	}
+}
