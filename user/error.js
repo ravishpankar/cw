@@ -3,7 +3,7 @@ exports.mongooseErrHandler = function(err) {
 }
 
 exports.returnError = function(res, err) {
-	res.status = err.status;
+	res.status = 500;
 	res.send(JSON.stringify({'error' : err.toString()}));
 }
 

@@ -5,7 +5,7 @@ var redisClient = null;
 var jwtr = null;
 const secret = config.get('jwtConfig').secret;
 
-exports.initJWT = function() {
+exports.init = function() {
 	if (!redisClient) {
 		redisClient = redis.createClient({ port : config.get('jwtConfig').port, host : config.get('jwtConfig').host, password  : config.get('jwtConfig').password});
 		redisClient.on('error', function (err) {
@@ -17,7 +17,7 @@ exports.initJWT = function() {
 }
 
 exports.sign = async function(userId) {
-	return await jwtr.sign({"jti" : userId}, secret).then(function (token) {
+	return await jwtr.sign({"jti" : userId.toString()}, secret).then(function (token) {
 			return token;
 		}).catch(function (err) {
 			throw err;
@@ -30,7 +30,7 @@ exports.destroy = async function(token) {
 	}).catch(function (err) {
 			throw err;
 	});
-	await jwtr.destroy({"jti" : "jwt-label:" + jti.userId}).catch(function (err) {
+	await jwtr.destroy(jti).catch(function (err) {
 		throw err;
 	});
 }

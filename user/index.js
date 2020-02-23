@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const error = require('./error');
 const jwt = require("./jwt");
+const otp = require("./otp");
 const uc = require("./usercontroller");
 const config = require('config');
 const express = require('express');
@@ -26,7 +27,7 @@ function init() {
                 console.log(err);
                 process.exit(-1)
             }
-            jwt.initJWT();
+            jwt.init();
             app.listen(3000, () => {
                 console.log("User microservice running on port 3000");
             });
@@ -68,17 +69,34 @@ app.post('/login', async function (req, res) {
     }
 });
 
-app.post('/logout', async function (req, res) {
+
+//todo: delete, destroytoken and get token from auth header
+app.delete('/logout/:jwtoken', async function (req, res) {
     try {
         res.status = 200;
-        await uc.logout(req.body.jwtoken).then(function() {
+        await uc.logout(req.params.jwtoken).then(function() {
             res.send();
         }).catch(
             function(err) {
                 error.returnError(res, err);
             });
     } catch(err) {
-        res.status = err.status;
-        res.send(JSON.stringify({'error' : err.toString()}))
+        error.returnError(res, err);
+    }
+});
+
+app.get('/otp/:mobileNumber', function (req, res) {
+   try {
+       otp.sendOtpTo(res, req.params.mobileNumber);
+   } catch(err) {
+       error.returnError(res, err);
+   }
+});
+
+app.get('/otp/:mobileNumber/:otp', function (req, res) {
+    try {
+        otp.verifyOtp(res, req.params.mobileNumber, req.params.otp);
+    } catch(err) {
+        error.returnError(res, err);
     }
 });
