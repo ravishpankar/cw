@@ -48,10 +48,7 @@ init();
 app.post('/user', async function (req, res) {
     try {
         res.status = 200
-        res.send(JSON.stringify(await uc.createUser(req.body).catch(
-            function(err) {
-                error.returnError(res, err);
-            })));
+        res.send(JSON.stringify(await uc.createUser(req.body).catch(function(err) {error.returnError(res, err);})));
     } catch(err) {
         error.returnError(res, err);
     }
@@ -60,10 +57,7 @@ app.post('/user', async function (req, res) {
 app.post('/login', async function (req, res) {
     try {
         res.status = 200
-        res.send(JSON.stringify(await uc.login(req.body).catch(
-            function(err) {
-                error.returnError(res, err);
-            })));
+        res.send(JSON.stringify(await uc.login(req.body).catch(function(err) {error.returnError(res, err);})));
     } catch(err) {
         error.returnError(res, err);
     }
@@ -76,10 +70,7 @@ app.delete('/logout/:jwtoken', async function (req, res) {
         res.status = 200;
         await uc.logout(req.params.jwtoken).then(function() {
             res.send();
-        }).catch(
-            function(err) {
-                error.returnError(res, err);
-            });
+        }).catch(function(err) {error.returnError(res, err);});
     } catch(err) {
         error.returnError(res, err);
     }
