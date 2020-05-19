@@ -16,7 +16,7 @@ function init() {
         console.log(err);
         process.exit(-1);
     }
-	mongoose.connection.on('error', error.mongooseErrHandler);
+    mongoose.connection.on('error', error.mongooseErrHandler);
     mongoose.connection.on('connected', function () {
         console.log('Mongoose connection open to ' + config.get('dbConfig').connectionString);
     });
