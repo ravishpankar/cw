@@ -68,9 +68,7 @@ app.post('/login', async function (req, res) {
 app.delete('/logout/:jwtoken', async function (req, res) {
     try {
         res.status = 200;
-        await uc.logout(req.params.jwtoken).then(function() {
-            res.send();
-        }).catch(function(err) {error.returnError(res, err);});
+        await uc.logout(req.params.jwtoken).then(function() {res.send();}).catch(function(err) {error.returnError(res, err);});
     } catch(err) {
         error.returnError(res, err);
     }
