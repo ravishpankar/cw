@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "config": "^3.2.5",
+    "config": "^3.3.8",
     "express": "^4.17.1",
     "jwt-redis": "^5.0.11",
     "mocha": "^7.0.1",
